@@ -40,6 +40,19 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: table
+  ga4:
+    staging:
+      recommended_events:
+        stg_ga4__event_purchase:
+          +enabled: true
+        stg_ga4__event_view_item:
+          +enabled: true
+        stg_ga4__event_view_cart:
+          +enabled: true
+        stg_ga4__event_add_to_cart:
+          +enabled: true
+        stg_ga4__event_begin_checkout:
+          +enabled: true
 
 vars:
   ga4:
@@ -47,8 +60,10 @@ vars:
     dataset: "analytics_417156521"
     start_date: "20231201" # Earliest date to load
     static_incremental_days: 3 # Number of days to scan and reprocess on each run
-    query_parameter_extraction: ["gclid","fbclid","keyword"] 
-    conversion_events:['purchase','download']
+    query_parameter_extraction: 
+      ["gclid","fbclid","keyword"] 
+    conversion_events:
+      ["purchase"]
     default_custom_parameters:
       - name: "traffic_type"
         value_type: "string_value"
