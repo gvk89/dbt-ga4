@@ -63,7 +63,7 @@ vars:
     query_parameter_extraction: 
       ["gclid","fbclid","keyword"] 
     conversion_events:
-      ["purchase"]
+      ["view_item","add_to_cart","begin_checkout","purchase"]
     default_custom_parameters:
       - name: "traffic_type"
         value_type: "string_value"
