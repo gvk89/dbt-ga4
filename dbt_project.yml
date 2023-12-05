@@ -48,6 +48,15 @@ vars:
     start_date: "20231201" # Earliest date to load
     static_incremental_days: 3 # Number of days to scan and reprocess on each run
     query_parameter_extraction: ["gclid","fbclid","keyword"] 
+    conversion_events:['purchase','download']
     default_custom_parameters:
       - name: "traffic_type"
+        value_type: "string_value"
+    derived_user_properties:
+      - event_parameter: "traffic_type"
+        user_property_name: "most_recent_traffic_type"
+        value_type: "string_value"
+    derived_session_properties:
+      - event_parameter: "traffic_type"
+        session_property_name: "most_recent_traffic_type"
         value_type: "string_value"
