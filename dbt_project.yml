@@ -2,7 +2,7 @@
 # Name your project! Project names should contain only lowercase characters
 # and underscores. A good package name should reflect your organization's
 # name or the intended use of these models
-name: 'my_new_project'
+name: 'ga4_bigquery'
 version: '1.0.0'
 config-version: 2
 
@@ -36,7 +36,43 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 
 models:
-  my_new_project:
-    # Applies to all files under models/example/
-    example:
+  ga4_bigquery:
+    +materialized: 
+      view
+    marts:
       +materialized: table
+  ga4:
+    staging:
+      recommended_events:
+        stg_ga4__event_purchase:
+          +enabled: true
+        stg_ga4__event_view_item:
+          +enabled: true
+        stg_ga4__event_view_cart:
+          +enabled: true
+        stg_ga4__event_add_to_cart:
+          +enabled: true
+        stg_ga4__event_begin_checkout:
+          +enabled: true
+
+vars:
+  ga4:
+    project: "bigquery-407011"
+    dataset: "analytics_417156521"
+    start_date: "20231201" # Earliest date to load
+    static_incremental_days: 3 # Number of days to scan and reprocess on each run
+    query_parameter_extraction: 
+      ["gclid","fbclid","keyword"] 
+    conversion_events:
+      ["view_item","add_to_cart","begin_checkout","purchase"]
+    default_custom_parameters:
+      - name: "traffic_type"
+        value_type: "string_value"
+    derived_user_properties:
+      - event_parameter: "traffic_type"
+        user_property_name: "most_recent_traffic_type"
+        value_type: "string_value"
+    derived_session_properties:
+      - event_parameter: "traffic_type"
+        session_property_name: "most_recent_traffic_type"
+        value_type: "string_value"
