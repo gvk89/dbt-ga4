@@ -59,7 +59,7 @@ vars:
   ga4:
     project: "bigquery-407011"
     dataset: "analytics_417156521"
-    start_date: "20231201" # Earliest date to load
+    start_date: "{{ env_var('DBT_START_DATE', '20231201') }}"
     static_incremental_days: 3 # Number of days to scan and reprocess on each run
     query_parameter_extraction: 
       ["gclid","fbclid","keyword"] 
