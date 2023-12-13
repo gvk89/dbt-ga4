@@ -56,6 +56,7 @@ models:
           +enabled: true
 
 vars:
+  static_incremental_days: 3 # Number of days to scan and reprocess on each run
   ga4:
     project: "bigquery-407011"
     dataset: "analytics_417156521"
