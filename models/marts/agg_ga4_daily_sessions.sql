@@ -45,7 +45,7 @@ FROM
 left join {{ ref('dim_ga4__sessions_daily') }}
 using(session_key)
 {% if is_incremental() %}
-where base.session_partition_date > (select max(session_start_date) from {{ this }}) and 
+where base.session_partition_date > (select max(session_start_date) from {{ this }})
 
 {% endif %}
 group by 1,2,3,4,5,6,7,8,9,10,11,12,13,14,15
