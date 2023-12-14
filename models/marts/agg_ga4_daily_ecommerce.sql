@@ -11,7 +11,7 @@
         materialized="incremental",
         incremental_strategy="insert_overwrite",
         partition_by={
-            "field": "session_start_date",
+            "field": "event_date_dt",
             "data_type": "date",
         },
         partitions=partitions_to_replace
@@ -79,7 +79,9 @@ merged as (
   geo_country,
   geo_region,
   device_category,
-  device_operating_system
+  device_operating_system,
+  device_web_info_browser,
+  device_language
   from items
   left join session_keys
   using(event_key)
