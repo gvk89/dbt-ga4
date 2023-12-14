@@ -62,7 +62,7 @@ session_dimensions as (
   device_language
   from {{ ref('dim_ga4__sessions_daily') }}
     {% if is_incremental() %}
-        where event_date_dt > (select max(session_start_date) from {{ this }})
+        where session_partition_date > (select max(event_date_dt) from {{ this }})
     {% endif %}
 ),
 merged as (
